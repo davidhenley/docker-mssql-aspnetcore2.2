@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  webapp:
+    build: WebApi
+    ports:
+      - 5000:5000
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: microsoft/mssql-server-linux:latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Yukon900
+    volumes:
+      - mssql:/var/opt/mssql/data
+    ports:
+      - 1433:1433
+
+volumes:
+  mssql:
+    external: true
